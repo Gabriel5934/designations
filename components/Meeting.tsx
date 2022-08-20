@@ -1,6 +1,6 @@
+import dayjs from "dayjs";
 import React from "react";
 import { uuid } from "uuidv4";
-import dayjs from "dayjs";
 
 interface Meeting {
   date: Date;

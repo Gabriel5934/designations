@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
-import Meeting from "../components/Meeting";
 import { uuid } from "uuidv4";
+
+import Meeting from "../components/Meeting";
 
 const dummyData = [
   {
