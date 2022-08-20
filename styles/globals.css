@@ -8,8 +8,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -21,19 +19,21 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: black;
 }
 
 @layer components {
   .title {
     @apply font-bold text-title text-primary-default font-sans;
+  }
+
+  .title-light {
+    @apply font-light text-title text-primary-default font-sans;
   }
 
   .subtitle {
@@ -44,7 +44,7 @@ a {
     @apply font-regular text-body text-white font-sans;
   }
 
-  .light {
+  .body-light {
     @apply font-light text-body text-white font-sans;
   }
 }
