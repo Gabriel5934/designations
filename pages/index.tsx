@@ -25,6 +25,9 @@ const dummyData = [
 const Home: NextPage = () => {
   return (
     <div className="p-8">
+      <div className="text-center py-32">
+        <h1 className="title text-center mb-2">Jardim Esplanada</h1>
+      </div>
       {dummyData.map((meeting) => (
         <Meeting key={uuid()} meeting={meeting} />
       ))}

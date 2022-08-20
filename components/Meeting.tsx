@@ -18,7 +18,7 @@ const capitalizeFirstLetter = (string: string) => {
 
 export default function Meeting({ meeting }: MeetingProps): JSX.Element {
   return (
-    <div className="flex flex-col p-4 gap-4 shadow-lg bg-surface rounded-lg">
+    <div className="flex flex-col p-4 gap-4 shadow-lg bg-surface rounded-box">
       <span>
         <span className="title">
           {capitalizeFirstLetter(

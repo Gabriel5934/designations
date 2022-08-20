@@ -10,6 +10,11 @@ module.exports = {
         primary: {
           default: "#70A7FF",
         },
+        secondary: {
+          default: "#324B73",
+          hover: "#2d4468",
+          active: "#283c5c",
+        },
         surface: "#121212",
         background: "#000000",
         white: "#ffffff",
@@ -29,5 +34,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+  daisyui: {
+    base: false,
+  },
 };
