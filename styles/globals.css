@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap");
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: black;
+}
+
+@layer components {
+  .title {
+    @apply font-bold text-title text-primary-default font-sans;
+  }
+
+  .title-light {
+    @apply font-light text-title text-primary-default font-sans;
+  }
+
+  .subtitle {
+    @apply font-bold text-subtitle text-white font-sans;
+  }
+
+  .body {
+    @apply font-regular text-body text-white font-sans;
+  }
+
+  .body-light {
+    @apply font-light text-body text-white font-sans;
+  }
+}
