@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { uuid } from "uuidv4";
+import { v4 } from "uuid";
 
 import Dropdown from "../components/Dropdown";
 import Meeting from "../components/Meeting";
@@ -69,7 +69,7 @@ const Home: NextPage = () => {
 
       <div className="flex flex-col gap-8">
         {meetings?.map((meeting) => (
-          <Meeting key={uuid()} meeting={meeting} />
+          <Meeting key={v4()} meeting={meeting} />
         ))}
       </div>
     </div>

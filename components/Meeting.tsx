@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import React from "react";
-import { uuid } from "uuidv4";
+import { v4 } from "uuid";
 
 import usePeople from "../hooks/usePeople";
 import { Meeting as MeetingInterface } from "../interfaces";
@@ -36,10 +36,10 @@ export default function Meeting({ meeting }: MeetingProps): JSX.Element {
       </span>
       <div className="flex flex-col">
         {formattedMeeting.designations.map((designation) => (
-          <span key={uuid()}>
+          <span key={v4()}>
             <span className="body">{designation.title}: </span>
             {designation.people.map((person, index) => (
-              <span className="body-light" key={uuid()}>
+              <span className="body-light" key={v4()}>
                 {person}
                 {designation.people.length - 1 !== index ? ", " : ""}
               </span>

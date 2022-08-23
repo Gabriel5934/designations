@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { uuid } from "uuidv4";
+import { v4 } from "uuid";
 
 import { Designation } from "../interfaces";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
@@ -22,7 +22,7 @@ export default function Upcoming({ designations, person }: UpcomingProps) {
       </span>
       <div className="text-left inline-flex flex-col">
         {formmatedDesignations.map((designation) => (
-          <span key={uuid()}>
+          <span key={v4()}>
             {designation.date} - {designation.title}
           </span>
         ))}

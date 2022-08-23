@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 } from "uuid";
 
 import usePeople from "../hooks/usePeople";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
@@ -25,7 +26,7 @@ export default function Dropdown({
         Quem é você?
       </option>
       {people.map((person) => (
-        <option key={person.id} value={person.id}>
+        <option key={v4()} value={person.id}>
           {capitalizeFirstLetter(person.name)}
         </option>
       ))}
