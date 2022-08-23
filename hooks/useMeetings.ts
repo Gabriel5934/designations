@@ -2,6 +2,8 @@ import {
   collection,
   CollectionReference,
   getDocs,
+  limit,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -26,7 +28,9 @@ export default function useMeetings() {
 
       const meetingsQuery = query<MeetingDocument>(
         meetingsRef,
-        where("date", "<=", twoMonthsFromNow)
+        where("date", "<=", twoMonthsFromNow),
+        limit(40),
+        orderBy("date", "asc")
       );
 
       const meetingsData: MeetingDocument[] = [];
