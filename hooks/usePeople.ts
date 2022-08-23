@@ -2,6 +2,7 @@ import {
   collection,
   CollectionReference,
   getDocs,
+  limit,
   query,
   where,
 } from "firebase/firestore";
@@ -20,7 +21,7 @@ export default function usePeople() {
         "people"
       ) as CollectionReference<PeopleDocument>;
 
-      const peopleQuery = query<PeopleDocument>(peopleRef);
+      const peopleQuery = query<PeopleDocument>(peopleRef, limit(100));
 
       const peopleData: PeopleDocument[] = [];
 
