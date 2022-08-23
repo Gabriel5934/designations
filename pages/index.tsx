@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { uuid } from "uuidv4";
 
 import Dropdown from "../components/Dropdown";
@@ -20,40 +20,61 @@ interface Designation {
   date: TimeStamp;
 }
 
+interface SelectedPerson {
+  id: number;
+  name: string;
+  upcomingDesignations: Designation[];
+}
+
 const Home: NextPage = () => {
   const [meetings] = useMeetings();
   const [people] = usePeople();
 
-  const [person, setPerson] = useState("default");
-  const [upcomingDesignations, setUpcomingDesignations] = useState<
-    Designation[]
-  >([]);
-  const [personName, setPersonName] = useState("");
+  const [selectedPerson, setSelectedPerson] = useState<SelectedPerson>();
 
   const designations = meetings.map((meeting) => meeting.designations).flat();
 
-  const getUpcomingDesignations = (person: number) =>
-    designations.filter((designation) => designation.people.includes(person));
+  const updateSelectedPerson = (personId: number) => {
+    const person = people.find((person) => person.id === personId);
+
+    if (person) {
+      setSelectedPerson({
+        id: person.id,
+        name: person.name,
+        upcomingDesignations: designations.filter((designation) =>
+          designation.people.includes(personId)
+        ),
+      });
+
+      localStorage.setItem("personId", person.id.toString());
+    }
+  };
 
   const handlePersonChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const person = event.target.value;
-    const upcomingDesignations = getUpcomingDesignations(Number(person));
-
-    setPerson(person);
-    setPersonName(people.find(({ id }) => id === Number(person))?.name ?? "");
-    setUpcomingDesignations(upcomingDesignations);
+    updateSelectedPerson(+event.target.value);
   };
+
+  useEffect(() => {
+    const storedPerson = localStorage.getItem("personId");
+    storedPerson && updateSelectedPerson(+storedPerson);
+  }, [people]);
 
   return (
     <div className="p-8">
       <div className="text-center py-32">
         <h1 className="title text-center mb-2">Jardim Esplanada</h1>
-        <Dropdown value={person} onChange={handlePersonChange} />
+        <Dropdown
+          value={selectedPerson?.id.toString() ?? "default"}
+          onChange={handlePersonChange}
+        />
       </div>
 
       <div className="mb-8">
-        {person !== "default" && (
-          <Upcoming designations={upcomingDesignations} person={personName} />
+        {selectedPerson && (
+          <Upcoming
+            designations={selectedPerson.upcomingDesignations}
+            person={selectedPerson.name}
+          />
         )}
       </div>
 
