@@ -2,10 +2,21 @@ import dayjs from "dayjs";
 import React from "react";
 import { uuid } from "uuidv4";
 
+interface TimeStamp {
+  seconds: number;
+  nanoseconds: number;
+  toDate: () => Date;
+}
+
+interface Designation {
+  title: string;
+  people: string[];
+  date: TimeStamp;
+}
+
 interface Meeting {
-  date: Date;
-  mechanical: Array<{ title: string; people: Array<string> }>;
-  stage: Array<{ title: string; people: Array<string> }>;
+  date: TimeStamp;
+  designations: Designation[];
 }
 
 interface MeetingProps {
@@ -17,41 +28,35 @@ const capitalizeFirstLetter = (string: string) => {
 };
 
 export default function Meeting({ meeting }: MeetingProps): JSX.Element {
+  const formattedMeeting = {
+    weekDay: capitalizeFirstLetter(
+      meeting.date.toDate().toLocaleDateString("pt-br", { weekday: "long" })
+    ),
+    date: dayjs(meeting.date.toDate()).format("DD/MM"),
+    designations: meeting.designations.map((designation) => ({
+      title: capitalizeFirstLetter(designation.title),
+      people: designation.people.map((person) => capitalizeFirstLetter(person)),
+    })),
+  };
+
   return (
     <div className="flex flex-col p-4 gap-4 shadow-lg bg-surface rounded-box">
       <span>
-        <span className="title">
-          {capitalizeFirstLetter(
-            meeting.date.toLocaleDateString("pt-br", { weekday: "long" })
-          )}{" "}
-        </span>
-        <span className="title-light">
-          {dayjs(meeting.date).format("DD/MM")}
-        </span>
+        <span className="title">{formattedMeeting.weekDay} </span>
+        <span className="title-light">{formattedMeeting.date}</span>
       </span>
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-col">
-          <span className="subtitle">Designações Mecânicas</span>
-
-          {meeting.mechanical.map((mechanical) => (
-            <span key={uuid()}>
-              <span className="body">{mechanical.title}: </span>
-              {mechanical.people.map((person, index) => (
-                <span className="body-light" key={uuid()}>
-                  {person}
-                  {mechanical.people.length - 1 !== index ? ", " : ""}
-                </span>
-              ))}
-            </span>
-          ))}
-        </div>
-        <div className="flex flex-col">
-          <span className="subtitle">Partes</span>
-          <span>
-            <span className="body">Leitura da Sentinela: </span>
-            <span className="body-light">Fulano</span>
+      <div className="flex flex-col">
+        {formattedMeeting.designations.map((designation) => (
+          <span key={uuid()}>
+            <span className="body">{designation.title}: </span>
+            {designation.people.map((person, index) => (
+              <span className="body-light" key={uuid()}>
+                {person}
+                {designation.people.length - 1 !== index ? ", " : ""}
+              </span>
+            ))}
           </span>
-        </div>
+        ))}
       </div>
     </div>
   );
