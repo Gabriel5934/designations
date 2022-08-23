@@ -1,17 +1,33 @@
 import React from "react";
 
-export default function Dropdown(): JSX.Element {
+import usePeople from "../hooks/usePeople";
+
+interface DropdownProps {
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+export default function Dropdown({
+  value,
+  onChange,
+}: DropdownProps): JSX.Element {
+  const [people] = usePeople();
+
   return (
     <select
       title="nome"
       className="select w-full max-w-xs bg-secondary-default text-white cursor-pointer"
+      value={value}
+      onChange={onChange}
     >
       <option disabled selected value="default">
         Quem é você?
       </option>
-      <option>Fulano</option>
-      <option>Ciclano</option>
-      <option>Beltrano</option>
+      {people.map((person) => (
+        <option key={person.id} value={person.id}>
+          {person.name}
+        </option>
+      ))}
     </select>
   );
 }

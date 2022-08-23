@@ -2,6 +2,9 @@ import dayjs from "dayjs";
 import React from "react";
 import { uuid } from "uuidv4";
 
+import usePeople from "../hooks/usePeople";
+import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
+
 interface TimeStamp {
   seconds: number;
   nanoseconds: number;
@@ -10,7 +13,7 @@ interface TimeStamp {
 
 interface Designation {
   title: string;
-  people: string[];
+  people: number[];
   date: TimeStamp;
 }
 
@@ -23,11 +26,9 @@ interface MeetingProps {
   meeting: Meeting;
 }
 
-const capitalizeFirstLetter = (string: string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
 export default function Meeting({ meeting }: MeetingProps): JSX.Element {
+  const [people] = usePeople();
+
   const formattedMeeting = {
     weekDay: capitalizeFirstLetter(
       meeting.date.toDate().toLocaleDateString("pt-br", { weekday: "long" })
@@ -35,7 +36,9 @@ export default function Meeting({ meeting }: MeetingProps): JSX.Element {
     date: dayjs(meeting.date.toDate()).format("DD/MM"),
     designations: meeting.designations.map((designation) => ({
       title: capitalizeFirstLetter(designation.title),
-      people: designation.people.map((person) => capitalizeFirstLetter(person)),
+      people: designation.people.map(
+        (person) => people.find(({ id }) => id === person)?.name ?? ""
+      ),
     })),
   };
 

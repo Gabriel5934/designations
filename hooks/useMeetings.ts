@@ -17,7 +17,7 @@ interface TimeStamp {
 
 interface Designation {
   title: string;
-  people: string[];
+  people: number[];
   date: TimeStamp;
 }
 
