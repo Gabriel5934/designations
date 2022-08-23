@@ -7,18 +7,7 @@ import Meeting from "../components/Meeting";
 import Upcoming from "../components/Upcoming";
 import useMeetings from "../hooks/useMeetings";
 import usePeople from "../hooks/usePeople";
-
-interface TimeStamp {
-  seconds: number;
-  nanoseconds: number;
-  toDate: () => Date;
-}
-
-interface Designation {
-  title: string;
-  people: number[];
-  date: TimeStamp;
-}
+import { Designation } from "../interfaces";
 
 interface SelectedPerson {
   id: number;

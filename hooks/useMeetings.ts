@@ -8,26 +8,10 @@ import {
 import { useEffect, useState } from "react";
 
 import { db } from "../firebase";
-
-interface TimeStamp {
-  seconds: number;
-  nanoseconds: number;
-  toDate: () => Date;
-}
-
-interface Designation {
-  title: string;
-  people: number[];
-  date: TimeStamp;
-}
-
-interface Meeting {
-  date: TimeStamp;
-  designations: Designation[];
-}
+import { MeetingDocument } from "../interfaces";
 
 export default function useMeetings() {
-  const [meetings, setMeetings] = useState<Meeting[]>([]);
+  const [meetings, setMeetings] = useState<MeetingDocument[]>([]);
 
   useEffect(() => {
     async function fetchMeetings() {
@@ -38,14 +22,14 @@ export default function useMeetings() {
       const meetingsRef = collection(
         db,
         "meetings"
-      ) as CollectionReference<Meeting>;
+      ) as CollectionReference<MeetingDocument>;
 
-      const meetingsQuery = query<Meeting>(
+      const meetingsQuery = query<MeetingDocument>(
         meetingsRef,
         where("date", "<=", twoMonthsFromNow)
       );
 
-      const meetingsData: Meeting[] = [];
+      const meetingsData: MeetingDocument[] = [];
 
       const meetingsSnapshot = await getDocs(meetingsQuery);
 

@@ -8,22 +8,21 @@ import {
 import { useEffect, useState } from "react";
 
 import { db } from "../firebase";
-
-interface Person {
-  id: number;
-  name: string;
-}
+import { PeopleDocument } from "../interfaces";
 
 export default function usePeople() {
-  const [people, setPeople] = useState<Person[]>([]);
+  const [people, setPeople] = useState<PeopleDocument[]>([]);
 
   useEffect(() => {
     async function fetchPeople() {
-      const peopleRef = collection(db, "people") as CollectionReference<Person>;
+      const peopleRef = collection(
+        db,
+        "people"
+      ) as CollectionReference<PeopleDocument>;
 
-      const peopleQuery = query<Person>(peopleRef);
+      const peopleQuery = query<PeopleDocument>(peopleRef);
 
-      const peopleData: Person[] = [];
+      const peopleData: PeopleDocument[] = [];
 
       const peopleSnapshot = await getDocs(peopleQuery);
 

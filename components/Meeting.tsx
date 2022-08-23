@@ -3,27 +3,11 @@ import React from "react";
 import { uuid } from "uuidv4";
 
 import usePeople from "../hooks/usePeople";
+import { Meeting as MeetingInterface } from "../interfaces";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 
-interface TimeStamp {
-  seconds: number;
-  nanoseconds: number;
-  toDate: () => Date;
-}
-
-interface Designation {
-  title: string;
-  people: number[];
-  date: TimeStamp;
-}
-
-interface Meeting {
-  date: TimeStamp;
-  designations: Designation[];
-}
-
 interface MeetingProps {
-  meeting: Meeting;
+  meeting: MeetingInterface;
 }
 
 export default function Meeting({ meeting }: MeetingProps): JSX.Element {
