@@ -36,8 +36,10 @@ export default function Meeting({ meeting }: MeetingProps): JSX.Element {
     date: dayjs(meeting.date.toDate()).format("DD/MM"),
     designations: meeting.designations.map((designation) => ({
       title: capitalizeFirstLetter(designation.title),
-      people: designation.people.map(
-        (person) => people.find(({ id }) => id === person)?.name ?? ""
+      people: designation.people.map((person) =>
+        capitalizeFirstLetter(
+          people.find(({ id }) => id === person)?.name ?? ""
+        )
       ),
     })),
   };

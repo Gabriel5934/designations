@@ -1,6 +1,7 @@
 import React from "react";
 
 import usePeople from "../hooks/usePeople";
+import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 
 interface DropdownProps {
   value: string;
@@ -25,7 +26,7 @@ export default function Dropdown({
       </option>
       {people.map((person) => (
         <option key={person.id} value={person.id}>
-          {person.name}
+          {capitalizeFirstLetter(person.name)}
         </option>
       ))}
     </select>

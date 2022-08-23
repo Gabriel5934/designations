@@ -29,7 +29,7 @@ export default function Upcoming({ designations, person }: UpcomingProps) {
   return (
     <div className="bg-surface p-4 rounded-box text-center">
       <span className="subtitle block mb-4">
-        Próximas Designações - {person}
+        Próximas Designações - {capitalizeFirstLetter(person)}
       </span>
       <div className="text-left inline-flex flex-col">
         {formmatedDesignations.map((designation) => (

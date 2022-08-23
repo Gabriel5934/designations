@@ -1,3 +1,5 @@
-export default function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+export default function capitalizeFirstLetter(str: string) {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
 }
