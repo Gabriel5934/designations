@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
-import React from "react";
+import React, { useContext } from "react";
 import { v4 } from "uuid";
 
-import usePeople from "../hooks/usePeople";
+import FirebaseContext from "../context/firebaseContext";
 import { Meeting as MeetingInterface } from "../interfaces";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 
@@ -11,7 +11,7 @@ interface MeetingProps {
 }
 
 export default function Meeting({ meeting }: MeetingProps): JSX.Element {
-  const [people] = usePeople();
+  const { people } = useContext(FirebaseContext);
 
   const formattedMeeting = {
     weekDay: capitalizeFirstLetter(

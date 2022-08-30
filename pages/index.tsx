@@ -1,12 +1,11 @@
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { v4 } from "uuid";
 
 import Dropdown from "../components/Dropdown";
 import Meeting from "../components/Meeting";
 import Upcoming from "../components/Upcoming";
-import useMeetings from "../hooks/useMeetings";
-import usePeople from "../hooks/usePeople";
+import FirebaseContext from "../context/firebaseContext";
 import { Designation } from "../interfaces";
 
 interface SelectedPerson {
@@ -16,8 +15,7 @@ interface SelectedPerson {
 }
 
 const Home: NextPage = () => {
-  const [meetings] = useMeetings();
-  const [people] = usePeople();
+  const { meetings, people } = useContext(FirebaseContext);
 
   const [selectedPerson, setSelectedPerson] = useState<SelectedPerson>();
 
