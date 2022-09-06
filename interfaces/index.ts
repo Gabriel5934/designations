@@ -1,26 +1,31 @@
-export interface TimeStamp {
-  seconds: number;
-  nanoseconds: number;
-  toDate: () => Date;
-}
+import { Timestamp } from "firebase/firestore";
+
+const TimestampInstance = new Timestamp(0, 0);
+
+type TimestampType = typeof TimestampInstance;
 
 export interface Designation {
   title: string;
   people: number[];
-  date: TimeStamp;
+  date: TimestampType;
 }
 
 export interface Meeting {
-  date: TimeStamp;
+  date: TimestampType;
   designations: Designation[];
 }
 
 export interface MeetingDocument {
-  date: TimeStamp;
+  date: TimestampType;
   designations: Designation[];
 }
 
 export interface PeopleDocument {
   id: number;
   name: string;
+}
+
+export interface MonthDocument {
+  firstDay: TimestampType;
+  designations: Designation[];
 }
