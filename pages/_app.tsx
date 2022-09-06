@@ -8,6 +8,7 @@ import React from "react";
 
 import { FirebaseProvider } from "../context/firebaseContext";
 import useMeetings from "../hooks/useMeetings";
+import useMonths from "../hooks/useMonths";
 import usePeople from "../hooks/usePeople";
 
 require("dayjs/locale/pt-br");
@@ -24,6 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       value={{
         meetings: useMeetings()[0],
         people: usePeople()[0],
+        months: useMonths()[0],
       }}
     >
       <Component {...pageProps} />
