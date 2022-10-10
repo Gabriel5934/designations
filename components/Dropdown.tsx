@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { v4 } from "uuid";
 
-import usePeople from "../hooks/usePeople";
+import FirebaseContext from "../context/firebaseContext";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 
 interface DropdownProps {
@@ -13,7 +13,7 @@ export default function Dropdown({
   value,
   onChange,
 }: DropdownProps): JSX.Element {
-  const [people] = usePeople();
+  const { people } = useContext(FirebaseContext);
 
   return (
     <select
