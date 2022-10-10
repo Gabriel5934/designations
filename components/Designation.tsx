@@ -6,7 +6,7 @@ import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 
 interface DesignationProps {
   title: string;
-  people: PeopleDocument[];
+  people: PeopleDocument;
   disabled: boolean;
 }
 
@@ -26,9 +26,9 @@ export default function Designation({
         <option disabled selected>
           Irmão
         </option>
-        {people.map((person) => (
-          <option key={v4()} value={person.id}>
-            {capitalizeFirstLetter(person.name)}
+        {Object.entries(people).map(([id, name]) => (
+          <option key={v4()} value={id}>
+            {capitalizeFirstLetter(name)}
           </option>
         ))}
       </select>

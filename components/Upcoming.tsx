@@ -29,11 +29,15 @@ export default function Upcoming({ personId }: UpcomingProps) {
         Próximas Designações - {capitalizeFirstLetter(person)}
       </span>
       <div className="text-left inline-flex flex-col">
-        {formmatedDesignations.map((designation) => (
-          <span key={v4()}>
-            {designation.date} - {designation.title}
-          </span>
-        ))}
+        {formmatedDesignations.length > 0 ? (
+          formmatedDesignations.map((designation) => (
+            <span key={v4()}>
+              {designation.date} - {designation.title}
+            </span>
+          ))
+        ) : (
+          <span>Nenhuma designação encontrada</span>
+        )}
       </div>
     </div>
   );
