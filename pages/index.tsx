@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import type { NextPage } from "next";
 import { useContext, useEffect, useState } from "react";
 import { v4 } from "uuid";
@@ -15,35 +16,43 @@ interface SelectedPerson {
 }
 
 const Home: NextPage = () => {
-  const { meetings, people } = useContext(FirebaseContext);
+  const { people } = useContext(FirebaseContext);
 
-  const [selectedPerson, setSelectedPerson] = useState<SelectedPerson>();
+  const [selectedPerson, setSelectedPerson] = useState<string>();
 
-  const designations = meetings.map((meeting) => meeting.designations).flat();
+  const getMeetings = () => {
+    const [wednesday, saturday] = [3, 6];
 
-  const updateSelectedPerson = (personId: number) => {
-    const person = people.find((person) => person.id === personId);
+    let d = dayjs().startOf("month"),
+      month = d.month(),
+      meetings: Date[] = [];
 
-    if (person) {
-      setSelectedPerson({
-        id: person.id,
-        name: person.name,
-        upcomingDesignations: designations.filter((designation) =>
-          designation.people.includes(personId)
-        ),
-      });
-
-      localStorage.setItem("personId", person.id.toString());
+    while (![wednesday, saturday].includes(d.day())) {
+      d = d.add(1, "day");
     }
+
+    while (d.month() === month || d.month() === month + 1) {
+      meetings.push(d.toDate());
+
+      if (d.day() === saturday) {
+        d = d.add(4, "day");
+      } else {
+        d = d.add(3, "day");
+      }
+    }
+
+    return meetings;
   };
 
+  const meetingDates = getMeetings();
+
   const handlePersonChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    updateSelectedPerson(+event.target.value);
+    setSelectedPerson(event.target.value);
   };
 
   useEffect(() => {
     const storedPerson = localStorage.getItem("personId");
-    storedPerson && updateSelectedPerson(+storedPerson);
+    storedPerson && setSelectedPerson(storedPerson);
   }, [people]);
 
   return (
@@ -51,23 +60,18 @@ const Home: NextPage = () => {
       <div className="text-center py-32">
         <h1 className="title text-center mb-2">Jardim Esplanada</h1>
         <Dropdown
-          value={selectedPerson?.id.toString() ?? "default"}
+          value={selectedPerson ?? "default"}
           onChange={handlePersonChange}
         />
       </div>
 
       <div className="mb-8">
-        {selectedPerson && (
-          <Upcoming
-            designations={selectedPerson.upcomingDesignations}
-            person={selectedPerson.name}
-          />
-        )}
+        {selectedPerson && <Upcoming personId={selectedPerson} />}
       </div>
 
       <div className="flex flex-col gap-8">
-        {meetings?.map((meeting) => (
-          <Meeting key={v4()} meeting={meeting} />
+        {meetingDates.map((date) => (
+          <Meeting key={v4()} date={date} />
         ))}
       </div>
     </div>

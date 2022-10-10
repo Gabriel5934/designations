@@ -25,9 +25,9 @@ export default function Dropdown({
       <option disabled selected value="default">
         Quem é você?
       </option>
-      {people.map((person) => (
-        <option key={v4()} value={person.id}>
-          {capitalizeFirstLetter(person.name)}
+      {Object.entries(people).map(([key, value]) => (
+        <option key={v4()} value={key}>
+          {capitalizeFirstLetter(value)}
         </option>
       ))}
     </select>

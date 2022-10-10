@@ -21,11 +21,18 @@ export interface MeetingDocument {
 }
 
 export interface PeopleDocument {
-  id: number;
-  name: string;
+  [key: string]: string;
 }
 
 export interface MonthDocument {
   firstDay: TimestampType;
   designations: Designation[];
+}
+
+export interface DesignationDocument {
+  designations: {
+    title: string;
+    person: string;
+    date: TimestampType;
+  }[];
 }

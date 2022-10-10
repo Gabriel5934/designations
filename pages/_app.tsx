@@ -7,8 +7,7 @@ import type { AppProps } from "next/app";
 import React from "react";
 
 import { FirebaseProvider } from "../context/firebaseContext";
-import useMeetings from "../hooks/useMeetings";
-import useMonths from "../hooks/useMonths";
+import useDesignations from "../hooks/useDesignations";
 import usePeople from "../hooks/usePeople";
 
 require("dayjs/locale/pt-br");
@@ -23,9 +22,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <FirebaseProvider
       value={{
-        meetings: useMeetings()[0],
         people: usePeople()[0],
-        months: useMonths()[0],
+        designations: useDesignations()[0],
       }}
     >
       <Component {...pageProps} />
