@@ -23,7 +23,7 @@ const Home: NextPage = () => {
   const getMeetings = () => {
     const [wednesday, saturday] = [3, 6];
 
-    let d = dayjs().startOf("month"),
+    let d = dayjs(),
       month = d.month(),
       meetings: Date[] = [];
 

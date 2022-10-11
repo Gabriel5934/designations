@@ -11,7 +11,14 @@ interface MeetingFormProps {
   disabled: boolean;
 }
 
-const designations = ["Microfone", "Pedestal", "Som", "Vídeo", "Indicador"];
+const titles = [
+  "microfone",
+  "video",
+  "som",
+  "indicador 1",
+  "indicador 2",
+  "pedestal",
+];
 
 export default function MeetingForm({ date, disabled }: MeetingFormProps) {
   const { people } = useContext(FirebaseContext);
@@ -29,12 +36,12 @@ export default function MeetingForm({ date, disabled }: MeetingFormProps) {
         </span>
       </div>
       <div className="flex flex-col gap-2">
-        {designations.map((designation) => (
+        {titles.map((designation) => (
           <Designation
             key={v4()}
             title={designation}
-            people={people}
             disabled={disabled}
+            date={date}
           />
         ))}
       </div>

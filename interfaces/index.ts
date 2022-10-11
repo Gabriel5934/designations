@@ -36,3 +36,9 @@ export interface DesignationDocument {
     date: TimestampType;
   }[];
 }
+
+export interface FormField {
+  title: string;
+  date: Date;
+  person: string;
+}
