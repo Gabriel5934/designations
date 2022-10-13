@@ -47,7 +47,10 @@ const Home: NextPage = () => {
   const meetingDates = getMeetings();
 
   const handlePersonChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedPerson(event.target.value);
+    const personId = event.target.value;
+
+    localStorage.setItem("personId", personId);
+    setSelectedPerson(personId);
   };
 
   useEffect(() => {
