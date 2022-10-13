@@ -10,14 +10,16 @@ import MeetingForm from "../components/MeetingForm";
 import FirebaseContext from "../context/firebaseContext";
 import { FormProvider } from "../context/formContext";
 import { auth } from "../firebase";
-import { DesignationDocument, FormField } from "../interfaces";
+import { FormField } from "../interfaces";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 import shuffleArray from "../utils/shuffleArray";
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
 
-  const { people } = useContext(FirebaseContext);
+  const { people, titles } = useContext(FirebaseContext);
+
+  const titlesKeys = Object.keys(titles);
 
   const [currentDate, setCurrentDate] = useState(dayjs());
   const [meetings, setMeetings] = useState<Date[]>([]);
@@ -62,15 +64,6 @@ const Dashboard: NextPage = () => {
     }
   };
 
-  const titles = [
-    "microfone",
-    "video",
-    "som",
-    "indicador 1",
-    "indicador 2",
-    "pedestal",
-  ];
-
   const handleRandomize = () => {
     const shuffledPeople = shuffleArray(Object.keys(people));
     let aux = 0;
@@ -79,7 +72,7 @@ const Dashboard: NextPage = () => {
       Array.from({ length: meetings.length }, (_, i) => {
         return Array.from(
           {
-            length: titles.length,
+            length: titlesKeys.length,
           },
           (_, j) => {
             aux > shuffledPeople.length - 1 && (aux = 0);
@@ -87,7 +80,7 @@ const Dashboard: NextPage = () => {
             const designation = {
               person: shuffledPeople[aux],
               date: meetings[i],
-              title: titles[j],
+              title: titlesKeys[j],
             };
 
             aux++;
@@ -110,6 +103,10 @@ const Dashboard: NextPage = () => {
   useEffect(() => {
     getMeetings();
   }, [currentDate]);
+
+  useEffect(() => {
+    console.log(formValue);
+  }, [formValue]);
 
   return true ? (
     <FormProvider

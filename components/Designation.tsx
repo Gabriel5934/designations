@@ -18,7 +18,7 @@ export default function Designation({
   disabled,
   date,
 }: DesignationProps) {
-  const { people } = useContext(FirebaseContext);
+  const { people, titles } = useContext(FirebaseContext);
   const { formValue, setFormValue } = useContext(FormContext);
 
   const designationIndex = formValue.findIndex(
@@ -62,7 +62,9 @@ export default function Designation({
 
   return (
     <div className="flex justify-between">
-      <span className="subtitle mr-4 w-1/3">{title}</span>
+      <span className="subtitle mr-4 w-1/3">
+        {capitalizeFirstLetter(titles[title])}
+      </span>
       <select
         title="person"
         className="select select-bordered select-sm grow max-w-xs"

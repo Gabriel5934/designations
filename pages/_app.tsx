@@ -9,6 +9,7 @@ import React from "react";
 import { FirebaseProvider } from "../context/firebaseContext";
 import useDesignations from "../hooks/useDesignations";
 import usePeople from "../hooks/usePeople";
+import useTitles from "../hooks/useTitles";
 
 require("dayjs/locale/pt-br");
 
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <FirebaseProvider
       value={{
         people: usePeople()[0],
+        titles: useTitles()[0],
         designations: useDesignations()[0],
       }}
     >

@@ -42,3 +42,7 @@ export interface FormField {
   date: Date;
   person: string;
 }
+
+export interface TitlesDocument {
+  [key: string]: string;
+}
