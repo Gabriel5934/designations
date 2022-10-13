@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { v4 } from "uuid";
 
 import FirebaseContext from "../context/firebaseContext";
-import { Meeting as MeetingInterface } from "../interfaces";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 
 interface MeetingProps {
@@ -11,7 +10,7 @@ interface MeetingProps {
 }
 
 export default function Meeting({ date }: MeetingProps): JSX.Element {
-  const { designations, people } = useContext(FirebaseContext);
+  const { designations, people, titles } = useContext(FirebaseContext);
 
   const formattedMeeting = {
     weekDay: capitalizeFirstLetter(
@@ -33,7 +32,9 @@ export default function Meeting({ date }: MeetingProps): JSX.Element {
       <div className="flex flex-col">
         {formattedMeeting.designations.map(({ title, person }) => (
           <span key={v4()}>
-            <span className="body">{capitalizeFirstLetter(title)}: </span>
+            <span className="body">
+              {capitalizeFirstLetter(titles[title])}:{" "}
+            </span>
             <span className="body-light" key={v4()}>
               {capitalizeFirstLetter(people[person])}
             </span>
