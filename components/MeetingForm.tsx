@@ -11,10 +11,21 @@ interface MeetingFormProps {
   disabled: boolean;
 }
 
-const designations = ["Microfone", "Pedestal", "Som", "Vídeo", "Indicador"];
-
 export default function MeetingForm({ date, disabled }: MeetingFormProps) {
-  const { people } = useContext(FirebaseContext);
+  const { titles } = useContext(FirebaseContext);
+
+  // Matrix with the titles and ids
+  var arrayOfTitles = Object.entries(titles).slice(0);
+
+  const sortedArrayOfTitles = arrayOfTitles.sort(function (a, b) {
+    var x = a[1].toLowerCase();
+    var y = b[1].toLowerCase();
+    return x < y ? -1 : x > y ? 1 : 0;
+  });
+
+  const sortedTitlesObject = Object.fromEntries(sortedArrayOfTitles);
+
+  const titlesKeys = Object.keys(sortedTitlesObject);
 
   return (
     <div className="bg-surface p-4 rounded-box">
@@ -29,12 +40,12 @@ export default function MeetingForm({ date, disabled }: MeetingFormProps) {
         </span>
       </div>
       <div className="flex flex-col gap-2">
-        {designations.map((designation) => (
+        {titlesKeys.map((title) => (
           <Designation
             key={v4()}
-            title={designation}
-            people={people}
+            title={title}
             disabled={disabled}
+            date={date}
           />
         ))}
       </div>

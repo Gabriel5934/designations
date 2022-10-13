@@ -10,22 +10,24 @@ export interface Designation {
   date: TimestampType;
 }
 
-export interface Meeting {
-  date: TimestampType;
-  designations: Designation[];
-}
-
-export interface MeetingDocument {
-  date: TimestampType;
-  designations: Designation[];
-}
-
 export interface PeopleDocument {
-  id: number;
-  name: string;
+  [key: string]: string;
 }
 
-export interface MonthDocument {
-  firstDay: TimestampType;
-  designations: Designation[];
+export interface DesignationDocument {
+  designations: {
+    title: string;
+    person: string;
+    date: TimestampType;
+  }[];
+}
+
+export interface FormField {
+  title: string;
+  date: Date;
+  person: string;
+}
+
+export interface TitlesDocument {
+  [key: string]: string;
 }

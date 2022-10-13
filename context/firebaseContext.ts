@@ -1,15 +1,19 @@
 import React from "react";
 
-import { MeetingDocument, MonthDocument, PeopleDocument } from "../interfaces";
+import {
+  DesignationDocument,
+  PeopleDocument,
+  TitlesDocument,
+} from "../interfaces";
 
 const FirebaseContext = React.createContext<{
-  people: PeopleDocument[];
-  meetings: MeetingDocument[];
-  months: MonthDocument[];
+  people: PeopleDocument;
+  titles: TitlesDocument;
+  designations: DesignationDocument["designations"];
 }>({
-  people: [],
-  meetings: [],
-  months: [],
+  people: {},
+  titles: {},
+  designations: [],
 });
 
 export const FirebaseProvider = FirebaseContext.Provider;
